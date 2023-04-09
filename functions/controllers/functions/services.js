@@ -15,7 +15,7 @@ exports.isValidEmail =(email)=> {
     };
   
     // Generate the JWT using the secret key
-    const token = jwt.sign(payload, process.env.JWT_SECRET);
+    const token = jwt.sign(payload, "4e0145c478d66abc3b3ff2eb2bdb388bf56dfd3d8faa3fdeedc54790f752c3a9e7fc2904d35f4f2287eb3a5286c54171098bff66831b118d58ae3baea6d42393fc0632e8f8a99ef34a00c5a48cb6");
   
     return token;
   }
