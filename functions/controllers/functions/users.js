@@ -51,3 +51,8 @@ exports.updateUser = (id, updatedUserData) => {
 
   return userToUpdate;
 };
+
+exports.userExists =(email, username)=> {
+    // check if a user with the given email or username exists in the users array
+    return users.some(user => user.email === email || user.username === username);
+  }
