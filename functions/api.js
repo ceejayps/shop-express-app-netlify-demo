@@ -3,6 +3,11 @@ const serverless = require('serverless-http');
 const app = express();
 const router = express.Router();
 const hello = require('./controllers/helloWorld');
+const bodyParser = require("body-parser");
+
+//parse request with body parser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 let records = [];
 
