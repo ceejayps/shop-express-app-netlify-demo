@@ -1,10 +1,20 @@
-const { isValidEmail } = require("./functions/services");
-const { createUser, userExists } = require("./functions/users");
+const { token } = require("morgan");
+const { isValidEmail, generateJWT } = require("./functions/services");
+const { createUser, userExists, getUserByEmailOrUsername } = require("./functions/users");
+const bcrypt = require("bcrypt");
 
 exports.login = (req, res) => {
-  const { email, password, username } = req.body;
-  console.log(req.body);
-  res.status(200).send({ email, password, username });
+  const { identifier, password } = req.body;
+  const user = getUserByEmailOrUsername(identifier);
+  if (!user) return res.status(401).json({ message: "Invalid email or username or password" });
+
+  const passwordMatch = bcrypt.compareSync(password, user.password);
+
+  if (!passwordMatch) return res.status(401).json({ message: "Invalid email or username or password" });
+  
+  const token = generateJWT(user)
+  
+  return res.status(200).json({ token, user });
 };
 
 exports.register = (req, res) => {
