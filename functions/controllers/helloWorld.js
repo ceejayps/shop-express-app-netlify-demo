@@ -1,11 +1,12 @@
 const express = require('express');
-const { login } = require('./auth');
+const { login, register } = require('./auth');
 const { hello } = require('./users');
 const router = express.Router();
 
 // Define a route for the root URL
 router.post('/users', login
 );
+router.post('/register', register)
 
 // Define a route for /about
 router.get('/about', (req, res) => {
