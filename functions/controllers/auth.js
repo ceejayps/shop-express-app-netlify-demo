@@ -1,3 +1,4 @@
+const { isValidEmail } = require("./functions/services");
 const { createUser, userExists } = require("./functions/users");
 
 exports.login = (req, res) => {
@@ -8,6 +9,9 @@ exports.login = (req, res) => {
 
 exports.register = (req, res) => {
   const { email, password, username } = req.body;
+  if(!isValidEmail(email))return res
+  .status(400)
+  .json({ message: "please check email" });
   if (userExists(email, ""))
     return res
       .status(400)
