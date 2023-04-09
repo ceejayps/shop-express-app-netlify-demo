@@ -1,5 +1,6 @@
 const { users } = require("../../data/data");
 const bcrypt = require("bcrypt");
+const { isValidEmail } = require("./services");
 exports.getUserById = (id) => {
   const user = users.find((user) => user.id === id);
   return user;
@@ -15,11 +16,25 @@ exports.getUserByUsername = (username) => {
   return user;
 };
 
+exports.getUserByEmailOrUsername = (emailOrUsername) => {
+    // Look up the user by email
+    let user = users.find((user) => user.email === emailOrUsername);
+  
+    // If the user was not found, look up by username
+    if (!user) {
+      user = users.find((user) => user.username === emailOrUsername);
+    }
+  
+    return user;
+  }
+  
+
 exports.getAllUsers = () => {
   return users;
 };
 
 exports.createUser = (newUser) => {
+    
   // generate a new ID for the user
   const newUserId = users.length + 1;
 
