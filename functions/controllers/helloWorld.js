@@ -1,10 +1,10 @@
 const express = require('express');
+const { hello } = require('./users/users');
 const router = express.Router();
 
 // Define a route for the root URL
-router.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+router.get('/users', hello
+);
 
 // Define a route for /about
 router.get('/about', (req, res) => {
