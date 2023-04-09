@@ -1,9 +1,10 @@
 const express = require('express');
-const { hello } = require('./users/users');
+const { login } = require('./auth');
+const { hello } = require('./users');
 const router = express.Router();
 
 // Define a route for the root URL
-router.get('/users', hello
+router.post('/users', login
 );
 
 // Define a route for /about
