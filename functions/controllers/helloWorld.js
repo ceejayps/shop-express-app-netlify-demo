@@ -4,7 +4,7 @@ const { hello } = require('./users');
 const router = express.Router();
 
 // Define a route for the root URL
-router.post('/users', login
+router.post('/login', login
 );
 router.post('/register', register)
 
