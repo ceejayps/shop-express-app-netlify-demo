@@ -4,6 +4,8 @@ const app = express();
 const router = express.Router();
 const hello = require('./controllers/helloWorld');
 const bodyParser = require("body-parser");
+require('dotenv').config();
+
 
 //parse request with body parser
 app.use(bodyParser.urlencoded({ extended: true }));
