@@ -6,6 +6,19 @@ const hello = require('./controllers/helloWorld');
 const bodyParser = require("body-parser");
 require('dotenv').config();
 
+const mongoose = require('mongoose');
+
+// Set up default mongoose connection
+const mongoDB = 'mongodb://localhost/my_database';
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Get the default connection
+const db = mongoose.connection;
+
+// Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+const BusinessEmailList = require('./models/emailSchema')
 
 //parse request with body parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,6 +45,30 @@ router.delete('/', (req, res) => {
 router.put('/', (req, res) => {
   res.send('Updating existing record');
 });
+
+router.post('/addEmail', async (req, res)=>{
+  try {
+    // Connect to MongoDB database
+    const mongoDB = 'mongodb://localhost/my_database';
+    await mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    // Create a new email list document
+    const newEmail = new BusinessEmailList({
+      businessName: businessName,
+      email: email
+    });
+
+    // Save the document to the database
+    await newEmail.save();
+
+    console.log(`Added email ${email} for business ${businessName} to the email list`);
+
+    // Disconnect from the database
+    await mongoose.disconnect();
+  } catch (err) {
+    console.error(`Error adding email ${email} for business ${businessName} to the email list: ${err.message}`);
+  }
+})
 
 //showing demo records
 router.get('/demo', (req, res) => {
