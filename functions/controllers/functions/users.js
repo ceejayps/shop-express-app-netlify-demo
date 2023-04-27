@@ -1,5 +1,5 @@
 const { users } = require("../../data/data");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 const { isValidEmail } = require("./services");
 exports.getUserById = (id) => {
   const user = users.find((user) => user.id === id);
@@ -35,22 +35,22 @@ exports.getAllUsers = () => {
 
 exports.createUser = (newUser) => {
     
-  // generate a new ID for the user
-  const newUserId = users.length + 1;
+  // // generate a new ID for the user
+  // const newUserId = users.length + 1;
 
-  // generate a salt (a random string used in the hashing process)
-  const saltRounds = 10;
-  const salt = bcrypt.genSaltSync(saltRounds);
+  // // generate a salt (a random string used in the hashing process)
+  // const saltRounds = 10;
+  // const salt = bcrypt.genSaltSync(saltRounds);
 
-  // hash a password using the generated salt
-  const hashedPassword = bcrypt.hashSync(newUser.password, salt);
-  newUser.password = hashedPassword
+  // // hash a password using the generated salt
+  // const hashedPassword = bcrypt.hashSync(newUser.password, salt);
+  // newUser.password = hashedPassword
 
-  // add the new user to the array
-  users.push({ ...newUser, id: newUserId });
+  // // add the new user to the array
+  // users.push({ ...newUser, id: newUserId });
 
-  // return the new user object
-  return { ...newUser, id: newUserId };
+  // // return the new user object
+  // return { ...newUser, id: newUserId };
 };
 
 exports.updateUser = (id, updatedUserData) => {
